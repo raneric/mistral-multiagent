@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multiagent"
+version = "0.1.0"
+description = "Multi-agent coding crew (PM, developer, reviewer) driven by the Mistral API."
+requires-python = ">=3.10"
+dependencies = [
+    "mistralai>=1.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+multiagent = "multiagent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+multiagent = ["prompts/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# EXE001/EXE002: the filesystem (NTFS) marks every file executable; no shebangs are wanted.
+# BLE001 is deliberate at two boundaries: SDK errors have varying shapes across
+# versions, and tool errors are returned to the model instead of crashing the run.
+ignore = ["EXE001", "EXE002", "BLE001"]

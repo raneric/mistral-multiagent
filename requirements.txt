@@ -1,0 +1,6 @@
+# Requirements are defined once, in pyproject.toml.
+# Install the runtime package:
+#   pip install -e .
+# Install with dev tools (pytest, ruff):
+#   pip install -e ".[dev]"
+-e .
