@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from multiagent.events import EventSink
 from multiagent.llm import AgentRunner, get_client
-from multiagent.prompts import compose
+from multiagent.prompts import compose, resolve
 from multiagent.tools import default_registry
 from multiagent.tools.sandbox import Workspace
 
@@ -39,6 +39,24 @@ def pm_spec(settings) -> AgentSpec:
         "pm", settings.pm_model,
         compose("pm_decompose", overrides_dir=settings.prompts_dir),
         allowed_tools=("read_file", "list_files", "write_file"),
+    )
+
+
+def discovery_spec(settings) -> AgentSpec:
+    """Interviewer agent. Its runner also needs an ask_user tool (see discovery.py)."""
+    return AgentSpec(
+        "discovery", settings.pm_model,
+        resolve("discovery"),
+        allowed_tools=("read_file", "write_file", "ask_user"),
+    )
+
+
+def prompt_author_spec(settings) -> AgentSpec:
+    """Adapts the five baseline templates into <project>/.multiagent/."""
+    return AgentSpec(
+        "prompt_author", settings.pm_model,
+        resolve("prompt_author"),
+        allowed_tools=("read_file", "write_file", "list_files"),
     )
 
 
