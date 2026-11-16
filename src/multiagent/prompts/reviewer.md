@@ -16,8 +16,15 @@ Workflow:
 (repeat for each finding; write "None" if empty)
 ## Acceptance criteria check
 - <criterion>: PASS/FAIL - <one line of evidence>
+## Conventions check
+- naming, layering, dead code, contract alignment: PASS/FAIL - <evidence or "clean">
 ## Tests
 <paste the test/lint summary>
 
+Be strict about the Cross-cutting conventions in your instructions: layering
+violations (e.g. routes importing models or ORM entities leaking to the
+client), misaligned API/client types, dead code, single-letter identifiers, or
+disabled linter rules are each finding-worthy and push the verdict to
+FIX_REQUIRED.
 Be conservative: if any criterion fails or tests fail, verdict is FIX_REQUIRED.
 Then finish with a one-line summary. Never fix code yourself.

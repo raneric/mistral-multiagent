@@ -20,10 +20,20 @@ src/multiagent/
 ├── tools/               # workspace sandbox, registry, filesystem + shell tools
 ├── agents/              # role specs: pm, developer, reviewer
 ├── orchestrator/        # task parsing, DAG scheduler, state, run wiring
-└── prompts/             # .md templates per role
+└── prompts/             # built-in .md templates per role + shared conventions
 tests/                   # sandbox, registry, task graph, scheduler, runner
 workspace/               # where the agents build (gitignored)
 ```
+
+## Per-project prompts and conventions
+
+The built-in templates in `src/multiagent/prompts/` are a language-agnostic
+baseline. A plan is underway: a discovery phase (agents interviewing the user
+in detail) will generate project-specific prompts and conventions into
+`<project>/.multiagent/` (e.g. `.multiagent/conventions.md`,
+`.multiagent/developer.md`, ...). At build time, any file present in that
+folder overrides its built-in counterpart; the built-ins are only used when an
+agent builds into this repo's default `workspace/` and no overrides exist.
 
 ## Setup
 

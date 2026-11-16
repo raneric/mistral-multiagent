@@ -10,7 +10,7 @@ def decompose(spec_text: str, settings, events: EventSink) -> list[Task]:
     Note: the PM agent decides the model's plan; we never trust its chat reply,
     only the task files it wrote with write_file.
     """
-    runner = build_runner(pm_spec(settings.pm_model), settings, events)
+    runner = build_runner(pm_spec(settings), settings, events)
     runner.run(f"Spec:\n\n{spec_text}", settings.pm_model)
 
     tasks = load_tasks(settings.tasks_dir) if settings.tasks_dir.is_dir() else []

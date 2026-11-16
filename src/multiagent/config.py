@@ -30,6 +30,11 @@ class Settings:
     def reports_dir(self) -> Path:
         return self.workspace / "reports"
 
+    @property
+    def prompts_dir(self) -> Path:
+        """Project-generated prompt/convention overrides (discovery phase writes here)."""
+        return self.workspace / ".multiagent"
+
     @classmethod
     def load(cls) -> "Settings":
         api_key = os.environ.get("MISTRAL_API_KEY")

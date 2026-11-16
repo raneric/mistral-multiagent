@@ -7,7 +7,7 @@ from multiagent.orchestrator.task import Task
 
 
 def review_task(task: Task, report_path: Path, settings, events: EventSink) -> str:
-    runner = build_runner(reviewer_spec(settings.reviewer_model), settings, events)
+    runner = build_runner(reviewer_spec(settings), settings, events)
     user_task = (
         f"Review the implementation of {task.path}. "
         f"Write your report to {report_path}."
